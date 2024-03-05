@@ -15,11 +15,39 @@
         </field>
     </record>
 
-    <record id="stock_picking_batch_graph" model="ir.ui.view">
-        <field name="name">stock.picking.batch.graph</field>
+    <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,graph,gantt</field>
+    </record>
+
+    <record id="stock_picking_view_graph" model="ir.ui.view">
+        <field name="name">stock.picking.view.graph</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            
-        </field>     
-        </record>
+            <graph>
+                <field name="scheduled_date" interval="day"/>
+                <field name="vehicle_category_id" />
+                <field name="volume"/>
+                <field name="weight"/>
+                <field name="no_of_transfers"/>
+                <field name="no_of_lines"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="stock_picking_view_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.view.gantt</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <gantt date_start="create_date"
+            date_stop="scheduled_date"
+            default_group_by='dock,vehicle'
+            default_scale='week'
+            decoration-info="state == 'draft'"
+            color="id"
+            >
+            <field name="state"/>
+            </gantt>  
+        </field>
+    </record>
+
 </odoo> 
