@@ -5,10 +5,10 @@
         <field name="model">fleet.vehicle.model.category</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_model_category_view_tree"/>
         <field name="arch" type="xml">
-            <tree position="inside">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="max_weight" string="Max Weight (kg)"/>
                 <field name="max_volume" string="Max Volume (m2)"/>
-            </tree>
+            </xpath>
         </field>
     </record>
 </odoo>

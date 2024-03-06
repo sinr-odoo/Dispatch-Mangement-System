@@ -45,4 +45,9 @@ class StockPickingBatch(models.Model):
 
     def _compute_display_name(self):
         for record in self:
-            record.display_name = f"{record.name}: {record.weight} kg, {record.volume} m2"
+            product_volume = 0
+            product_weight = 0
+            for products in record.move_line_ids:
+                product_volume += products.product_id.volume * products.quantity
+                product_weight += products.product_id.weight * products.quantity
+            record.display_name = f"{record.name}: {product_weight} kg, {product_volume} m2"
